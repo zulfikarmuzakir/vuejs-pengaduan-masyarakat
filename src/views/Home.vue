@@ -1,18 +1,28 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  {{ message }}
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import { onMounted, ref } from "vue";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  name: "Home",
+  setup() {
+    const message = ref('You are not logged in!');
+
+    onMounted(async () => {
+      const response = await fetch("http://localhost:8050/api/user", {
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+      });
+
+      const content = await response.json();
+
+      message.value = `Hi ${content.name}`;
+    });
+
+    return {
+      message
+    }
+  },
+};
 </script>
