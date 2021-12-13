@@ -18,6 +18,23 @@
       id="inline-name"
       type="date"
     />
+    <input
+      type="text"
+      v-model="data.judul_laporan"
+      class="
+        bg-gray-200
+        appearance-none
+        border-2 border-gray-200
+        rounded
+        w-full
+        py-2
+        px-4
+        text-gray-700
+        leading-tight
+        focus:outline-none focus:bg-white focus:border-purple-500
+        mb-4
+      "
+    />
     <textarea
       v-model="data.isi_laporan"
       class="
@@ -66,6 +83,7 @@ export default {
   setup() {
     const data = reactive({
       tgl_pengaduan: "",
+      judul_laporan: "",
       isi_laporan: "",
       foto: "",
       status: "",

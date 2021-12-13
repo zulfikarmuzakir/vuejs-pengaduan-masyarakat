@@ -1,28 +1,27 @@
 <template>
-  {{ message }}
+  <div class="container mx-auto">
+  div
+    <div v-for="pengaduan in pengaduans" :key="pengaduan.id">
+      <p>{{ pengaduan.judul_laporan }}</p>
+    </div>
+  </div>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+// import { onMounted } from "vue";
 export default {
   name: "Home",
-  setup() {
-    const message = ref('You are not logged in!');
-
-    onMounted(async () => {
-      const response = await fetch("http://localhost:8050/api/user", {
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-      });
-
-      const content = await response.json();
-
-      message.value = `Hi ${content.name}`;
-    });
-
+  data() {
     return {
-      message
+      pengaduans: []
     }
   },
+
+  mounted() {
+    fetch("http://localhost:8050/api/pengaduan")
+    .then(res => res.json())
+    .then(data => this.pengaduans = data)
+    .catch(err => console.log(err.message))
+  }
 };
 </script>
